@@ -11,7 +11,7 @@ FROM EMPLOYEE;
 -- 2. 직원명, 직급코드, 보너스포함연봉(원) 조회
 --    단, 보너스포함연봉값에 절대 NULL이 나와서는 안됨
 --    뿐만아니라 연봉은 \57,000,000원 형식으로 조회되게 함
-SELECT EMP_NAME 사원명, JOB_CODE 직급코드, CONCAT((SALARY + SALARY*NVL(BONUS,0))*12, '\57,000,000원') "보너스포함연봉(원)"
+SELECT EMP_NAME 사원명, JOB_CODE 직급코드,  TO_CHAR((SALARY+(SALARY * NVL(BONUS, 0)))*12, 'L999,999,999') || '원' "보너스포함연봉(원)"
 FROM EMPLOYEE;
 
 
