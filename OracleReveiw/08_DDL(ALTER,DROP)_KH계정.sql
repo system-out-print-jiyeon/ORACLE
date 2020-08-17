@@ -73,40 +73,61 @@ ALTER TABLE DEPARTMENT DROP COLUMN DEPT_ID;       --> 부모키 삭제할 수 없음 (오�
 
 -----------------------------------------------------------------------------------------------------------------
 
+-- 2) 제약 조건 추가 / 삭제
+
+-- 2_1) 제약조건 추가
+-- PRIMARY KEY : ALTER TABLE 테이블명 ADD PRIMARY KEY(컬럼명);
+-- FOREIGN KEY : ALTER TABLE 테이블명 ADD FOREIGN KEY(컬럼명) REFERENCES 참조할테이블명(참조할컬럼명);
+-- UNIQUE      : ALTER TABLE 테이블명 ADD UNIQUE(컬럼명);
+-- CHECK       : ALTER TABLE 테이블명 ADD CHECK(컬럼에대한 조건);
+-- NOT NULL    : ALTER TABLE 테이블명 MODIFY 컬럼명 NOT NULL;
+
+-- DEPT_COPY 테이블에
+-- DEPT_ID에 PRIMARY KEY 제약조건 추가 (ADD)
+-- DEPT_TITLE에 UNIQUE 제약조건 추가   (ADD)
+-- LNAME에 NOT NULL 제약조건 추가      (MODIFY)
+
+ALTER TABLE DEPT_COPY
+ADD CONSTRAINT DCOPY_PK PRIMARY KEY(DEPT_ID)
+ADD CONSTRAINT DCOPY_DTITLE_UQ UNIQUE(DEPT_TITLE)
+MODIFY LNAME CONSTRAINT DCOPY_LNAME_NN NOT NULL;
 
 
+-- 2_2) 제약조건 삭제 : DROP CONSTRAINT 제약조건명 / MODIFY 컬럼명 NULL (NOT NULL 제약조건일 경우!)
+
+-- DCOPY_PK 제약조건을 지움
+ALTER TABLE DEPT_COPY DROP CONSTRAINT DCOPY_PK;
+
+-- DCOPY_DTITLE_UQ 지우기, LNAME 컬럼을 다시 NULL로 변경
+ALTER TABLE DEPT_COPY
+DROP CONSTRAINT DCOPY_DTITLE_UQ
+MODIFY LNAME NULL;
+
+---------------------------------------------------------------------------------------------------------------------------
 
 
+-- 3) 컬럼명 / 테이블명 / 제약조건명 변경 (RENAME)
 
+-- 3_1) 컬럼명 변경 : RENAME COLUMN 기존컬럼명 TO 바꿀컬럼명
+-- DEPT_TITLE --> DEPT_NAME
+ALTER TABLE DEPT_COPY RENAME COLUMN DEPT_TITLE TO DEPT_NAME;
 
+-- 3_2) 제약조건명 변경 : RENAME CONSTRAINT 기존제약조건명 TO 바꿀제약조건명
+-- SYS_C007174 --> DCOPY_LID_NN
+ALTER TABLE DEPT_COPY RENAME CONSTRAINT SYS_C007174 TO DCOPY_LID_NN;
 
+-- 3_3) 테이블명 변경 : RENAME [기존테이블명] TO 바꿀테이블명
+-- DEPT_COPY --> DEPT_TEST
+ALTER TABLE DEPT_COPY RENAME TO DEPT_TEST;
 
+SELECT * FROM DEPT_COPY;   --> 안뜸!!
 
+----------------------------------------------------------------------------------------------------------------------------
 
+-- 테이블 삭제 : DROP TABLE 테이블명 [CASCADE CONSTRAINT]
+-- 주의할 점 : 어디선가 참조되고 있는 부모테이블은 함부로 삭제안됨!!
+-- 삭제가능한 방법1. 자식테이블 삭제 후 부모테이블을 삭제하는 방법
+-- 삭제가능한 방법2. 아니면 그냥 부모테이블만 삭제하는데 아싸리 제약조건도 함께 삭제하는 방법
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+DROP TABLE DEPT_TEST CASCADE CONSTRAINT; 
 
