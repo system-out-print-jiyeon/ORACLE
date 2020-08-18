@@ -32,7 +32,7 @@ END;
 --      [표현법] 변수명 [CONSTANT] 자료형 [:= 담고자하는값];
 
 DECLARE
-    EID NUMBER; -- (java로 치면) int Eid
+    EID NUMBER; -- (java로 치면) int Eid 
     ENAME VARCHAR2(20);
     PI CONSTANT NUMBER := 3.14; -- CONSTANT: 상수 / 선언과 동시에 초기화, 대입(:=) 
 BEGIN 
