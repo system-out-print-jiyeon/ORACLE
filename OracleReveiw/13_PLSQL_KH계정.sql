@@ -2,18 +2,18 @@
     < PL / SQL >
     PROCEDURE LANGUAGE EXTENSION TO SQL
     
-    ¿À¶óÅ¬ ÀÚÃ¼¿¡ ³»ÀåµÇ¾îÀÖ´Â ÀýÂ÷Àû ¾ð¾î
-    º¯¼öÀÇ Á¤ÀÇ, Á¶°ÇÃ³¸®(IF), ¹Ýº¹Ã³¸®(LOOP, FOR, WHILE)µîÀ» Áö¿øÇÏ¿© SQLÀÇ ´ÜÁ¡À» º¸¿Ï
-    ´Ù¼öÀÇ SQL¹®À» ÇÑ¹ø¿¡ ½ÇÇà °¡´É (BLOCK ±¸Á¶·Î)
+    ì˜¤ë¼í´ ìžì²´ì— ë‚´ìž¥ë˜ì–´ìžˆëŠ” ì ˆì°¨ì  ì–¸ì–´
+    ë³€ìˆ˜ì˜ ì •ì˜, ì¡°ê±´ì²˜ë¦¬(IF), ë°˜ë³µì²˜ë¦¬(LOOP, FOR, WHILE)ë“±ì„ ì§€ì›í•˜ì—¬ SQLì˜ ë‹¨ì ì„ ë³´ì™„
+    ë‹¤ìˆ˜ì˜ SQLë¬¸ì„ í•œë²ˆì— ì‹¤í–‰ ê°€ëŠ¥ (BLOCK êµ¬ì¡°ë¡œ)
 
-    * PL / SQL ±¸Á¶
-    - [ ¼±¾ðºÎ (DECLARE SECTION)]      : DECLARE ·Î ½ÃÀÛ, º¯¼ö³ª »ó¼ö¸¦ ¼±¾ð ¹× ÃÊ±âÈ­ÇÏ´Â ºÎºÐ
-    - ½ÇÇàºÎ (EXECUTABLE SECTION)      : BEGIN ·Î ½ÃÀÛ, SQL¹® ¶Ç´Â Á¦¾î¹®(Á¶°Ç¹®, ¹Ýº¹¹®) µîÀÇ ·ÎÁ÷À» ±â¼úÇÏ´Â ºÎºÐ (»ý·«ºÒ°¡) 
-    - [ ¿¹¿ÜÃ³¸®ºÎ (EXCEPTION SECTION)] : EXCEPTION À¸·Î ½ÃÀÛ, ¿¹¿Ü ¹ß»ý½Ã ÇØ°áÇÏ±â À§ÇÑ ±¸¹®À» ±â¼úÇØµÎ´Â ºÎºÐ
+    * PL / SQL êµ¬ì¡°
+    - [ ì„ ì–¸ë¶€ (DECLARE SECTION)]      : DECLARE ë¡œ ì‹œìž‘, ë³€ìˆ˜ë‚˜ ìƒìˆ˜ë¥¼ ì„ ì–¸ ë° ì´ˆê¸°í™”í•˜ëŠ” ë¶€ë¶„
+    - ì‹¤í–‰ë¶€ (EXECUTABLE SECTION)      : BEGIN ë¡œ ì‹œìž‘, SQLë¬¸ ë˜ëŠ” ì œì–´ë¬¸(ì¡°ê±´ë¬¸, ë°˜ë³µë¬¸) ë“±ì˜ ë¡œì§ì„ ê¸°ìˆ í•˜ëŠ” ë¶€ë¶„ (ìƒëžµë¶ˆê°€) 
+    - [ ì˜ˆì™¸ì²˜ë¦¬ë¶€ (EXCEPTION SECTION)] : EXCEPTION ìœ¼ë¡œ ì‹œìž‘, ì˜ˆì™¸ ë°œìƒì‹œ í•´ê²°í•˜ê¸° ìœ„í•œ êµ¬ë¬¸ì„ ê¸°ìˆ í•´ë‘ëŠ” ë¶€ë¶„
     
 */
 
--- * °£´ÜÇÏ°Ô È­¸é¿¡ HELLO ORACLE Ãâ·Â
+-- * ê°„ë‹¨í•˜ê²Œ í™”ë©´ì— HELLO ORACLE ì¶œë ¥
 
 SET SERVEROUTPUT ON;
 
@@ -24,22 +24,22 @@ END;
 
 ------------------------------------------------------------------------------------------------------------
 
--- 1. DECLARE ¼±¾ðºÎ
---    º¯¼ö ¹× »ó¼ö ¼±¾ðÇØ ³õ´Â °ø°£ (¼±¾ð°ú µ¿½Ã¿¡ ÃÊ±âÈ­µµ °¡´É)
---    ÀÏ¹ÝÅ¸ÀÔº¯¼ö, ·¹ÆÛ·±½ºÅ¸ÀÔº¯¼ö, ROWÅ¸ÀÔº¯¼ö
+-- 1. DECLARE ì„ ì–¸ë¶€
+--    ë³€ìˆ˜ ë° ìƒìˆ˜ ì„ ì–¸í•´ ë†“ëŠ” ê³µê°„ (ì„ ì–¸ê³¼ ë™ì‹œì— ì´ˆê¸°í™”ë„ ê°€ëŠ¥)
+--    ì¼ë°˜íƒ€ìž…ë³€ìˆ˜, ë ˆí¼ëŸ°ìŠ¤íƒ€ìž…ë³€ìˆ˜, ROWíƒ€ìž…ë³€ìˆ˜
 
--- 1_1) ÀÏ¹ÝÅ¸ÀÔº¯¼ö ¼±¾ð ¹× ÃÊ±âÈ­
---      [Ç¥Çö¹ý] º¯¼ö¸í [CONSTANT] ÀÚ·áÇü [:= ´ã°íÀÚÇÏ´Â°ª];
+-- 1_1) ì¼ë°˜íƒ€ìž…ë³€ìˆ˜ ì„ ì–¸ ë° ì´ˆê¸°í™”
+--      [í‘œí˜„ë²•] ë³€ìˆ˜ëª… [CONSTANT] ìžë£Œí˜• [:= ë‹´ê³ ìží•˜ëŠ”ê°’];
 
 DECLARE
-    EID NUMBER; -- (java·Î Ä¡¸é) int Eid
+    EID NUMBER; -- (javaë¡œ ì¹˜ë©´) int Eid
     ENAME VARCHAR2(20);
-    PI CONSTANT NUMBER := 3.14; -- CONSTANT: »ó¼ö / ¼±¾ð°ú µ¿½Ã¿¡ ÃÊ±âÈ­, ´ëÀÔ(:=) 
+    PI CONSTANT NUMBER := 3.14; -- CONSTANT: ìƒìˆ˜ / ì„ ì–¸ê³¼ ë™ì‹œì— ì´ˆê¸°í™”, ëŒ€ìž…(:=) 
 BEGIN 
     EID := 800;
-    ENAME := '¹èÀå³²';
+    ENAME := 'ë°°ìž¥ë‚¨';
     
-     -- (java·Î Ä¡¸é) system.out.println ("eid : " + eid); -- eid : 800
+     -- (javaë¡œ ì¹˜ë©´) system.out.println ("eid : " + eid); -- eid : 800
     DBMS_OUTPUT.PUT_LINE('EID : ' || EID); 
     DBMS_OUTPUT.PUT_LINE('ENAME : ' || ENAME);
     DBMS_OUTPUT.PUT_LINE('PI : ' || PI);
@@ -48,22 +48,22 @@ END;
 
 ---------------------------------------------------------------------------------------------------------
 
--- 1_2) ·¹ÆÛ·±½º Å¸ÀÔ º¯¼ö ¼±¾ð ¹× ÃÊ±âÈ­ (¾î¶² Å×ÀÌºíÀÇ ¾î¶² ÄÃ·³ÀÇ µ¥ÀÌÅÍÅ¸ÀÔÀ» ÂüÁ¶ÇØ¼­ ±× Å¸ÀÔÀ¸·Î ÁöÁ¤)
---      [Ç¥Çö¹ý] º¯¼ö¸í Å×ÀÌºí¸í.ÄÃ·³¸í%TYPE;
+-- 1_2) ë ˆí¼ëŸ°ìŠ¤ íƒ€ìž… ë³€ìˆ˜ ì„ ì–¸ ë° ì´ˆê¸°í™” (ì–´ë–¤ í…Œì´ë¸”ì˜ ì–´ë–¤ ì»¬ëŸ¼ì˜ ë°ì´í„°íƒ€ìž…ì„ ì°¸ì¡°í•´ì„œ ê·¸ íƒ€ìž…ìœ¼ë¡œ ì§€ì •)
+--      [í‘œí˜„ë²•] ë³€ìˆ˜ëª… í…Œì´ë¸”ëª….ì»¬ëŸ¼ëª…%TYPE;
 DECLARE
     EID EMPLOYEE.EMP_ID%TYPE;
     ENAME EMPLOYEE.EMP_NAME%TYPE;
     SAL EMPLOYEE.SALARY%TYPE;
 BEGIN
-    -- »ç¹øÀÌ 200¹øÀÎ »ç¿øÀÇ »ç¹ø, »ç¿ø¸í, ±Þ¿© Á¶È¸ÇØ¼­ °¢°¢ EID, ENAME, SAL º¯¼ö¿¡ ´ã±â
-    -- À¯ÀÇÇÒ Á¡ : SELECT INTO¸¦ ÀÌ¿ëÇØ¼­ Á¶È¸°á°ú¸¦ °¢ º¯¼ö¿¡ ´ëÀÔ½ÃÅ°°íÀÚ ÇÑ´Ù¸é ¹Ýµå½Ã ÇÑ°³ÀÇ ÇàÀ¸·Î Á¶È¸
+    -- ì‚¬ë²ˆì´ 200ë²ˆì¸ ì‚¬ì›ì˜ ì‚¬ë²ˆ, ì‚¬ì›ëª…, ê¸‰ì—¬ ì¡°íšŒí•´ì„œ ê°ê° EID, ENAME, SAL ë³€ìˆ˜ì— ë‹´ê¸°
+    -- ìœ ì˜í•  ì  : SELECT INTOë¥¼ ì´ìš©í•´ì„œ ì¡°íšŒê²°ê³¼ë¥¼ ê° ë³€ìˆ˜ì— ëŒ€ìž…ì‹œí‚¤ê³ ìž í•œë‹¤ë©´ ë°˜ë“œì‹œ í•œê°œì˜ í–‰ìœ¼ë¡œ ì¡°íšŒ
     SELECT EMP_ID, EMP_NAME, SALARY
     INTO EID, ENAME, SAL
     FROM EMPLOYEE
-    --WHERE EMP_ID = 200; -- ÀÌ ±¸¹® ¾È¾²¸é ¿©·¯Çà Á¶È¸µÅ¼­ ¿À·ù¶ä
-    --WHERE EMP_ID = &»ç¹ø;   -- °ª ÀÔ·Â¹ÞÀ¸·Á¸é & !!
-    WHERE EMP_NAME = '&ÀÌ¸§'; -- ¹®ÀÚ´Â '' ¹Ýµå½Ã ±â¼úÇØÁà¾ßµÈ´Ù
-    --> & ±âÈ£´Â ´ëÃ¼º¯¼ö(°ªÀ» ÀÔ·Â)¸¦ ÀÔ·ÂÇÏ±â À§ÇÑ Ã¢ÀÌ ¶ß°Ô ÇØÁÖ´Â ±¸¹®
+    --WHERE EMP_ID = 200; -- ì´ êµ¬ë¬¸ ì•ˆì“°ë©´ ì—¬ëŸ¬í–‰ ì¡°íšŒë¼ì„œ ì˜¤ë¥˜ëœ¸
+    --WHERE EMP_ID = &ì‚¬ë²ˆ;   -- ê°’ ìž…ë ¥ë°›ìœ¼ë ¤ë©´ & !!
+    WHERE EMP_NAME = '&ì´ë¦„'; -- ë¬¸ìžëŠ” '' ë°˜ë“œì‹œ ê¸°ìˆ í•´ì¤˜ì•¼ëœë‹¤
+    --> & ê¸°í˜¸ëŠ” ëŒ€ì²´ë³€ìˆ˜(ê°’ì„ ìž…ë ¥)ë¥¼ ìž…ë ¥í•˜ê¸° ìœ„í•œ ì°½ì´ ëœ¨ê²Œ í•´ì£¼ëŠ” êµ¬ë¬¸
 
 
     DBMS_OUTPUT.PUT_LINE('EID : ' || EID);
@@ -73,14 +73,14 @@ BEGIN
 END;
 /
 
------------------------------------- ½Ç½À¹®Á¦ --------------------------------------------------------------
+------------------------------------ ì‹¤ìŠµë¬¸ì œ --------------------------------------------------------------
 /*
-    ·¹ÆÛ·±½º Å¸ÀÔÀÇ º¯¼ö·Î EID, ENAME, JCODE, SAL, DTITLE¸¦ ¼±¾ðÇÏ°í
-    °¢ ÀÚ·áÇüÀº EMPLOYEEÅ×ÀÌºíÀÇ °¢ EMP_ID, EMP_NAME, JOB_CODE, SALARY ÄÃ·³ Å¸ÀÔ ÂüÁ¶ÇÏ°í
-               DEPARTMENTÅ×ÀÌºíÀÇ DEPT_TITLE ÄÃ·³ Å¸ÀÔÀ» ÂüÁ¶ÇÏ°Ô²û
+    ë ˆí¼ëŸ°ìŠ¤ íƒ€ìž…ì˜ ë³€ìˆ˜ë¡œ EID, ENAME, JCODE, SAL, DTITLEë¥¼ ì„ ì–¸í•˜ê³ 
+    ê° ìžë£Œí˜•ì€ EMPLOYEEí…Œì´ë¸”ì˜ ê° EMP_ID, EMP_NAME, JOB_CODE, SALARY ì»¬ëŸ¼ íƒ€ìž… ì°¸ì¡°í•˜ê³ 
+               DEPARTMENTí…Œì´ë¸”ì˜ DEPT_TITLE ì»¬ëŸ¼ íƒ€ìž…ì„ ì°¸ì¡°í•˜ê²Œë”
                
-    »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ »ç¿ø¸í°ú ÀÏÄ¡ÇÏ´Â »ç¿øÀ» Á¶È¸ (»ç¹ø, »ç¿ø¸í, Á÷±ÞÄÚµå, ±Þ¿©, ºÎ¼­¸í)ÇÑ ÈÄ
-    Á¶È¸°á°ú¸¦ °¢ º¯¼ö¿¡ ´ëÀÔ ÈÄ Ãâ·Â
+    ì‚¬ìš©ìžê°€ ìž…ë ¥í•œ ì‚¬ì›ëª…ê³¼ ì¼ì¹˜í•˜ëŠ” ì‚¬ì›ì„ ì¡°íšŒ (ì‚¬ë²ˆ, ì‚¬ì›ëª…, ì§ê¸‰ì½”ë“œ, ê¸‰ì—¬, ë¶€ì„œëª…)í•œ í›„
+    ì¡°íšŒê²°ê³¼ë¥¼ ê° ë³€ìˆ˜ì— ëŒ€ìž… í›„ ì¶œë ¥
 */
 
 DECLARE 
@@ -95,33 +95,33 @@ BEGIN
     INTO EID, ENAME, JCODE, SAL, DTITLE
     FROM EMPLOYEE
     JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
-    WHERE EMP_NAME = '&»ç¿ø¸í';
+    WHERE EMP_NAME = '&ì‚¬ì›ëª…';
     
     
-    DBMS_OUTPUT.PUT_LINE('»ç¹ø : ' || EID);
-    DBMS_OUTPUT.PUT_LINE('»ç¿ø¸í : ' || ENAME);
-    DBMS_OUTPUT.PUT_LINE('Á÷±Þ : ' || JCODE);
-    DBMS_OUTPUT.PUT_LINE('±Þ¿© : ' || SAL);
-    DBMS_OUTPUT.PUT_LINE('ºÎ¼­¸í : ' || DTITLE);
+    DBMS_OUTPUT.PUT_LINE('ì‚¬ë²ˆ : ' || EID);
+    DBMS_OUTPUT.PUT_LINE('ì‚¬ì›ëª… : ' || ENAME);
+    DBMS_OUTPUT.PUT_LINE('ì§ê¸‰ : ' || JCODE);
+    DBMS_OUTPUT.PUT_LINE('ê¸‰ì—¬ : ' || SAL);
+    DBMS_OUTPUT.PUT_LINE('ë¶€ì„œëª… : ' || DTITLE);
     
 END;
 /
 
 ------------------------------------------------------------------------------------------------------------------------
 
--- 1_3) Å×ÀÌºíÀÇ ÇÑ Çà¿¡ ´ëÇÑ Å¸ÀÔ º¯¼ö ¼±¾ð (Å×ÀÌºíÀÇ ÇÑ Çà¿¡ ´ëÇÑ ¸ðµç ÄÃ·³°ªÀ» ÇÑ²¨¹ø¿¡ ´Ù ´ãÀ» ¼ö ÀÖ´Â º¯¼ö)
---      [Ç¥Çö¹ý] º¯¼ö¸í Å×ÀÌºí¸í%ROWTYPE;
+-- 1_3) í…Œì´ë¸”ì˜ í•œ í–‰ì— ëŒ€í•œ íƒ€ìž… ë³€ìˆ˜ ì„ ì–¸ (í…Œì´ë¸”ì˜ í•œ í–‰ì— ëŒ€í•œ ëª¨ë“  ì»¬ëŸ¼ê°’ì„ í•œêº¼ë²ˆì— ë‹¤ ë‹´ì„ ìˆ˜ ìžˆëŠ” ë³€ìˆ˜)
+--      [í‘œí˜„ë²•] ë³€ìˆ˜ëª… í…Œì´ë¸”ëª…%ROWTYPE;
 DECLARE
     E EMPLOYEE%ROWTYPE;
 BEGIN
-    SELECT *        -- ÇàÅ¸ÀÔ¿¡ ´ãÀ»¶© ¹«Á¶°Ç * ÀÌ¿©¾ßÇÔ!!, °ñ¶ó¼­ ±â¼ú X
+    SELECT *        -- í–‰íƒ€ìž…ì— ë‹´ì„ë• ë¬´ì¡°ê±´ * ì´ì—¬ì•¼í•¨!!, ê³¨ë¼ì„œ ê¸°ìˆ  X
     INTO E
     FROM EMPLOYEE
-    WHERE EMP_NAME = '&»ç¿ø¸í';
+    WHERE EMP_NAME = '&ì‚¬ì›ëª…';
 
-    DBMS_OUTPUT.PUT_LINE('»ç¹ø : ' || E.EMP_ID); -- EÁß¿¡¼­ EMP_ID°ª¸¸ »Ì°Ú´Ù
-    DBMS_OUTPUT.PUT_LINE('±Þ¿© : ' || E.SALARY);
-    DBMS_OUTPUT.PUT_LINE('ÀüÈ­¹øÈ£ : ' || E.PHONE);
+    DBMS_OUTPUT.PUT_LINE('ì‚¬ë²ˆ : ' || E.EMP_ID); -- Eì¤‘ì—ì„œ EMP_IDê°’ë§Œ ë½‘ê² ë‹¤
+    DBMS_OUTPUT.PUT_LINE('ê¸‰ì—¬ : ' || E.SALARY);
+    DBMS_OUTPUT.PUT_LINE('ì „í™”ë²ˆí˜¸ : ' || E.PHONE);
 
 END;
 /
@@ -130,11 +130,11 @@ END;
 
 -- 2. BEGIN
 
--- < Á¶°Ç¹® >
+-- < ì¡°ê±´ë¬¸ >
 
--- 1) IF Á¶°Ç½Ä THEN ½ÇÇà³»¿ë END IF; (´ÜÀÏ IF¹®)
--- »ç¹ø ÀÔ·Â¹ÞÀº ÈÄ ÇØ´ç »ç¿øÀÇ »ç¹ø, ÀÌ¸§, ±Þ¿©, º¸³Ê½ºÀ²(%) Ãâ·Â
--- ´Ü, º¸³Ê½º¸¦ ¹ÞÁö ¾Ê´Â »ç¿øÀº º¸³Ê½ºÀ² Ãâ·Â Àü 'º¸³Ê½º¸¦ Áö±Þ¹ÞÁö ¾Ê´Â »ç¿øÀÔ´Ï´Ù' Ãâ·Â
+-- 1) IF ì¡°ê±´ì‹ THEN ì‹¤í–‰ë‚´ìš© END IF; (ë‹¨ì¼ IFë¬¸)
+-- ì‚¬ë²ˆ ìž…ë ¥ë°›ì€ í›„ í•´ë‹¹ ì‚¬ì›ì˜ ì‚¬ë²ˆ, ì´ë¦„, ê¸‰ì—¬, ë³´ë„ˆìŠ¤ìœ¨(%) ì¶œë ¥
+-- ë‹¨, ë³´ë„ˆìŠ¤ë¥¼ ë°›ì§€ ì•ŠëŠ” ì‚¬ì›ì€ ë³´ë„ˆìŠ¤ìœ¨ ì¶œë ¥ ì „ 'ë³´ë„ˆìŠ¤ë¥¼ ì§€ê¸‰ë°›ì§€ ì•ŠëŠ” ì‚¬ì›ìž…ë‹ˆë‹¤' ì¶œë ¥
 DECLARE
     EID EMPLOYEE.EMP_ID%TYPE;
     ENAME EMPLOYEE.EMP_NAME%TYPE;
@@ -144,24 +144,24 @@ BEGIN
     SELECT EMP_ID, EMP_NAME, SALARY, NVL(BONUS, 0)
     INTO EID, ENAME, SALARY, BONUS
     FROM EMPLOYEE
-    WHERE EMP_ID = &»ç¹ø;
+    WHERE EMP_ID = &ì‚¬ë²ˆ;
     
-    DBMS_OUTPUT.PUT_LINE('»ç¹ø : ' || EID);
-    DBMS_OUTPUT.PUT_LINE('ÀÌ¸§ : ' || ENAME);
-    DBMS_OUTPUT.PUT_LINE('±Þ¿© : ' || SALARY);
+    DBMS_OUTPUT.PUT_LINE('ì‚¬ë²ˆ : ' || EID);
+    DBMS_OUTPUT.PUT_LINE('ì´ë¦„ : ' || ENAME);
+    DBMS_OUTPUT.PUT_LINE('ê¸‰ì—¬ : ' || SALARY);
     
     IF (BONUS = 0) 
-        THEN DBMS_OUTPUT.PUT_LINE('º¸³Ê½º¸¦ Áö±Þ¹ÞÁö ¾Ê´Â »ç¿øÀÔ´Ï´Ù.');  
+        THEN DBMS_OUTPUT.PUT_LINE('ë³´ë„ˆìŠ¤ë¥¼ ì§€ê¸‰ë°›ì§€ ì•ŠëŠ” ì‚¬ì›ìž…ë‹ˆë‹¤.');  
     END IF;
     
-    DBMS_OUTPUT.PUT_LINE('º¸³Ê½ºÀ² : ' || BONUS * 100 || '%');
+    DBMS_OUTPUT.PUT_LINE('ë³´ë„ˆìŠ¤ìœ¨ : ' || BONUS * 100 || '%');
     
 END;
 /
 
 ----------------------------------------------------------------------------------------------------
 
--- 2) IF Á¶°Ç½Ä
+-- 2) IF ì¡°ê±´ì‹ THEN ì‹¤í–‰ë‚´ìš© ELSE ì‹¤í–‰ë‚´ìš© END IF; (IF-ELSE)
 
 DECLARE
     EID EMPLOYEE.EMP_ID%TYPE;
@@ -172,16 +172,16 @@ BEGIN
     SELECT EMP_ID, EMP_NAME, SALARY, NVL(BONUS, 0)
     INTO EID, ENAME, SALARY, BONUS
     FROM EMPLOYEE
-    WHERE EMP_ID = &»ç¹ø;
+    WHERE EMP_ID = &ì‚¬ë²ˆ;
     
-    DBMS_OUTPUT.PUT_LINE('»ç¹ø : ' || EID);
-    DBMS_OUTPUT.PUT_LINE('ÀÌ¸§ : ' || ENAME);
-    DBMS_OUTPUT.PUT_LINE('±Þ¿© : ' || SALARY);
+    DBMS_OUTPUT.PUT_LINE('ì‚¬ë²ˆ : ' || EID);
+    DBMS_OUTPUT.PUT_LINE('ì´ë¦„ : ' || ENAME);
+    DBMS_OUTPUT.PUT_LINE('ê¸‰ì—¬ : ' || SALARY);
     
     IF (BONUS = 0) 
-        THEN DBMS_OUTPUT.PUT_LINE('º¸³Ê½º¸¦ Áö±Þ¹ÞÁö ¾Ê´Â »ç¿øÀÔ´Ï´Ù.');  
+        THEN DBMS_OUTPUT.PUT_LINE('ë³´ë„ˆìŠ¤ë¥¼ ì§€ê¸‰ë°›ì§€ ì•ŠëŠ” ì‚¬ì›ìž…ë‹ˆë‹¤.');  
     ELSE
-        DBMS_OUTPUT.PUT_LINE('º¸³Ê½ºÀ² : ' || BONUS * 100 || '%');
+        DBMS_OUTPUT.PUT_LINE('ë³´ë„ˆìŠ¤ìœ¨ : ' || BONUS * 100 || '%');
     END IF;
     
    
@@ -190,8 +190,8 @@ END;
 
 
 
--- °Ë»öµÈ ÇØ´ç »ç¿øÀÇ »ç¹ø, ÀÌ¸§, ºÎ¼­¸í, ±¹°¡ÄÚµå(NATIONAL_CODE) Á¶È¸ ÈÄ º¯¼ö¿¡ ´ã±â
--- ÇØ´ç »ç¿øÀÇ »ç¹ø, ÀÌ¸§, ºÎ¼­¸í, ¼Ò¼Ó(±¹³»ÆÀ/ÇØ¿ÜÆÀ) Ãâ·Â
+-- ê²€ìƒ‰ëœ í•´ë‹¹ ì‚¬ì›ì˜ ì‚¬ë²ˆ, ì´ë¦„, ë¶€ì„œëª…, êµ­ê°€ì½”ë“œ(NATIONAL_CODE) ì¡°íšŒ í›„ ë³€ìˆ˜ì— ë‹´ê¸°
+-- í•´ë‹¹ ì‚¬ì›ì˜ ì‚¬ë²ˆ, ì´ë¦„, ë¶€ì„œëª…, ì†Œì†(êµ­ë‚´íŒ€/í•´ì™¸íŒ€) ì¶œë ¥
 DECLARE
     EID EMPLOYEE.EMP_ID%TYPE;
     ENAME EMPLOYEE.EMP_NAME%TYPE;
@@ -204,35 +204,35 @@ BEGIN
     FROM EMPLOYEE E, DEPARTMENT D, LOCATION L
    WHERE E.DEPT_CODE = D.DEPT_ID
      AND D.LOCATION_ID = L.LOCAL_CODE
-     AND E.EMP_ID = &»ç¹ø;
+     AND E.EMP_ID = &ì‚¬ë²ˆ;
      
     IF (NCODE = 'KO')
-        THEN TEAM := '±¹³»ÆÀ';
+        THEN TEAM := 'êµ­ë‚´íŒ€';
     ELSE
-        TEAM := 'ÇØ¿ÜÆÀ';
+        TEAM := 'í•´ì™¸íŒ€';
     END IF;
     
         
-    DBMS_OUTPUT.PUT_LINE('»ç¹ø : ' || EID);
-    DBMS_OUTPUT.PUT_LINE('ÀÌ¸§ : ' || ENAME);
-    DBMS_OUTPUT.PUT_LINE('ºÎ¼­¸í : ' || DTITLE);
-    DBMS_OUTPUT.PUT_LINE('¼Ò¼Ó : ' || TEAM);
+    DBMS_OUTPUT.PUT_LINE('ì‚¬ë²ˆ : ' || EID);
+    DBMS_OUTPUT.PUT_LINE('ì´ë¦„ : ' || ENAME);
+    DBMS_OUTPUT.PUT_LINE('ë¶€ì„œëª… : ' || DTITLE);
+    DBMS_OUTPUT.PUT_LINE('ì†Œì† : ' || TEAM);
 
 END;
 /
 
 --------------------------------------------------------------------------------------------
 
--- 3) IF Á¶°Ç½Ä1 THEN ½ÇÇà³»¿ë1 ELSIF Á¶°Ç½Ä2 THEN ½ÇÇà³»¿ë2 .. ELSE ½ÇÇà³»¿ëN  END IF;
+-- 3) IF ì¡°ê±´ì‹1 THEN ì‹¤í–‰ë‚´ìš©1 ELSIF ì¡°ê±´ì‹2 THEN ì‹¤í–‰ë‚´ìš©2 .. ELSE ì‹¤í–‰ë‚´ìš©N  END IF;
 
--- »ç¿ëÀÚ¿¡°Ô ÀÔ·Â¹ÞÀº Á¡¼ö°ªÀ» SCOREº¯¼ö¿¡ ÀúÀåÇÑ ÈÄ
--- 90Á¡ ÀÌ»óÀº 'A', 80Á¡ ÀÌ»ó 'B', 70Á¡ ÀÌ»ó 'C', 60Á¡ ÀÌ»ó 'D', 60Á¡ ¹Ì¸¸Àº 'F'·Î Ã³¸®ÇÑ ÈÄ GRADEº¯¼ö¿¡ ÀúÀå
--- '´ç½ÅÀÇ Á¡¼ö´Â XXÁ¡ÀÌ°í, ÇÐÁ¡Àº XÇÐÁ¡ÀÔ´Ï´Ù.'
+-- ì‚¬ìš©ìžì—ê²Œ ìž…ë ¥ë°›ì€ ì ìˆ˜ê°’ì„ SCOREë³€ìˆ˜ì— ì €ìž¥í•œ í›„
+-- 90ì  ì´ìƒì€ 'A', 80ì  ì´ìƒ 'B', 70ì  ì´ìƒ 'C', 60ì  ì´ìƒ 'D', 60ì  ë¯¸ë§Œì€ 'F'ë¡œ ì²˜ë¦¬í•œ í›„ GRADEë³€ìˆ˜ì— ì €ìž¥
+-- 'ë‹¹ì‹ ì˜ ì ìˆ˜ëŠ” XXì ì´ê³ , í•™ì ì€ Xí•™ì ìž…ë‹ˆë‹¤.'
 DECLARE
     SCORE NUMBER;
     GRADE CHAR(1);
 BEGIN
-    SCORE := &Á¡¼ö;
+    SCORE := &ì ìˆ˜;
     
     
     IF SCORE >= 90 THEN GRADE := 'A';
@@ -242,32 +242,32 @@ BEGIN
     ELSE GRADE := 'F';
     END IF;
     
-    DBMS_OUTPUT.PUT_LINE('´ç½ÅÀÇ Á¡¼ö´Â ' || SCORE || 'Á¡ÀÌ°í, ÇÐÁ¡Àº ' || GRADE || 'ÇÐÁ¡ÀÔ´Ï´Ù.');
+    DBMS_OUTPUT.PUT_LINE('ë‹¹ì‹ ì˜ ì ìˆ˜ëŠ” ' || SCORE || 'ì ì´ê³ , í•™ì ì€ ' || GRADE || 'í•™ì ìž…ë‹ˆë‹¤.');
 
 END;
 /
 
 ------------------------------------------------------------------------------------------------------------------
 
--- < ¹Ýº¹¹® >
+-- < ë°˜ë³µë¬¸ >
 
 /*
-    1) BASIC LOOP ¹®
+    1) BASIC LOOP ë¬¸
     
-    [Ç¥Çö½Ä]
+    [í‘œí˜„ì‹]
     LOOP
-        ¹Ýº¹ÀûÀ¸·Î ½ÇÇàÇÒ ±¸¹®
+        ë°˜ë³µì ìœ¼ë¡œ ì‹¤í–‰í•  êµ¬ë¬¸
     
-        ¹Ýº¹¹®À» ºüÁ®³ª°¥ Á¶°Ç
+        ë°˜ë³µë¬¸ì„ ë¹ ì ¸ë‚˜ê°ˆ ì¡°ê±´
     END LOOP;
     
-    --> ¹Ýº¹¹®À» ºüÁ®³ª°¥ Á¶°Ç (2°¡Áö)
-        1) IF Á¶°Ç½Ä THEN EXIT;  END IF; 
-        2) EXIT WHEN Á¶°Ç½Ä;               (´õ °£´Ü)
+    --> ë°˜ë³µë¬¸ì„ ë¹ ì ¸ë‚˜ê°ˆ ì¡°ê±´ (2ê°€ì§€)
+        1) IF ì¡°ê±´ì‹ THEN EXIT;  END IF; 
+        2) EXIT WHEN ì¡°ê±´ì‹;               (ë” ê°„ë‹¨)
         
 */
 
--- 1~5±îÁö ¼øÂ÷ÀûÀ¸·Î 1¾¿ Áõ°¡ÇÏ´Â °ªÀ» Ãâ·Â
+-- 1~5ê¹Œì§€ ìˆœì°¨ì ìœ¼ë¡œ 1ì”© ì¦ê°€í•˜ëŠ” ê°’ì„ ì¶œë ¥
 DECLARE
     I NUMBER := 1;
 BEGIN
@@ -275,8 +275,8 @@ BEGIN
     LOOP
         DBMS_OUTPUT.PUT_LINE(I);
         I := I + 1;
-        --IF I = 6 THEN EXIT; END IF; -- Ã¹¹øÂ° ¹æ¹ý
-        EXIT WHEN I = 6;              -- µÎ¹øÂ° ¹æ¹ý
+        --IF I = 6 THEN EXIT; END IF; -- ì²«ë²ˆì§¸ ë°©ë²•
+        EXIT WHEN I = 6;              -- ë‘ë²ˆì§¸ ë°©ë²•
     END LOOP;
 
 END;
@@ -284,17 +284,17 @@ END;
 ----------------------------------------------------------------------------------------------------------
 
 /*
-    2) FOR LOOP ¹®
+    2) FOR LOOP ë¬¸
     
-    [Ç¥Çö½Ä]
-    FOR º¯¼ö IN [REVERSE ¿ªÀ¸·Î½ÇÇà] ÃÊ±â°ª..ÃÖÁ¾°ª (1¾¿ Áõ°¡¸¸ ÇÏ´Â ±¸¹®)
+    [í‘œí˜„ì‹]
+    FOR ë³€ìˆ˜ IN [REVERSE ì—­ìœ¼ë¡œì‹¤í–‰] ì´ˆê¸°ê°’..ìµœì¢…ê°’ (1ì”© ì¦ê°€ë§Œ í•˜ëŠ” êµ¬ë¬¸)
     LOOP
-        ¹Ýº¹ÀûÀ¸·Î ½ÇÇàÇÒ ±¸¹®
+        ë°˜ë³µì ìœ¼ë¡œ ì‹¤í–‰í•  êµ¬ë¬¸
     END LOOP;
 
 */
 
--- DECLAREºÎ ÇÊ¿ä¾øÀ½, 'FOR º¯¼ö'¿¡¼­ ÀúÀý·Î ´ã±è
+-- DECLAREë¶€ í•„ìš”ì—†ìŒ, 'FOR ë³€ìˆ˜'ì—ì„œ ì €ì ˆë¡œ ë‹´ê¹€
 BEGIN 
     FOR I IN REVERSE 1..5
     LOOP
@@ -303,7 +303,7 @@ BEGIN
 END;
 /
 
--- ¹Ýº¹¹®À» ÀÌ¿ëÇÑ µ¥ÀÌÅÍ »ðÀÔ
+-- ë°˜ë³µë¬¸ì„ ì´ìš©í•œ ë°ì´í„° ì‚½ìž…
 CREATE TABLE TEST2(
     NUM NUMBER PRIMARY KEY,
     TODAY DATE
@@ -326,24 +326,24 @@ END;
 
 --------------------------------------------------------------------------------------------------------------
 
--- ÁßÃ¸ ¹Ýº¹¹®
--- ±¸±¸´Ü (2~9´Ü) Ãâ·ÂÇÏ±â
+-- ì¤‘ì²© ë°˜ë³µë¬¸
+-- êµ¬êµ¬ë‹¨ (2~9ë‹¨) ì¶œë ¥í•˜ê¸°
 DECLARE
     RESULT NUMBER;
 BEGIN
     
-    -- ¹Ù±ùÂÊ FOR¹®¿¡ ´Ü¼ö (2~9)
-    -- ¾ÈÂÊ FOR¹®¿¡ °öÇØÁö´Â ¼ö (1~9)
+    -- ë°”ê¹¥ìª½ FORë¬¸ì— ë‹¨ìˆ˜ (2~9)
+    -- ì•ˆìª½ FORë¬¸ì— ê³±í•´ì§€ëŠ” ìˆ˜ (1~9)
     FOR DAN IN 2..9
     LOOP
-        DBMS_OUTPUT.PUT_LINE('===== ' || DAN || '´Ü =====');
+        DBMS_OUTPUT.PUT_LINE('===== ' || DAN || 'ë‹¨ =====');
         FOR SU IN 1..9
         LOOP
             RESULT := DAN * SU;
             DBMS_OUTPUT.PUT_LINE(DAN || 'X' || SU || '=' || RESULT);
         END LOOP;
     
-        DBMS_OUTPUT.PUT_LINE(''); -- °³Çà³Ö¾îÁÖ±â
+        DBMS_OUTPUT.PUT_LINE(''); -- ê°œí–‰ë„£ì–´ì£¼ê¸°
     
     END LOOP;
     
@@ -351,7 +351,7 @@ END;
 /
 
 /*
--- ÀÌ°Ç ³»°¡ ÇØº»°Í
+-- ì´ê±´ ë‚´ê°€ í•´ë³¸ê²ƒ
 BEGIN
     FOR I IN 2..9
     LOOP
@@ -367,12 +367,12 @@ END;
 -----------------------------------------------------------------------------------------------------------
 
 /*
-    3) WHILE LOOP ¹®
+    3) WHILE LOOP ë¬¸
     
-    [Ç¥Çö¹ý]
-    WHILE ¹Ýº¹¹®ÀÌ¼öÇàµÉÁ¶°Ç
+    [í‘œí˜„ë²•]
+    WHILE ë°˜ë³µë¬¸ì´ìˆ˜í–‰ë ì¡°ê±´
     LOOP
-        ¹Ýº¹ÀûÀ¸·Î ½ÇÇàÇÒ ±¸¹®;
+        ë°˜ë³µì ìœ¼ë¡œ ì‹¤í–‰í•  êµ¬ë¬¸;
     END LOOP;
 */
 
@@ -391,46 +391,46 @@ END;
 -----------------------------------------------------------------------------------------------------------
 
 /*
-    3. ¿¹¿ÜÃ³¸®ºÎ (EXCEPTION)
+    3. ì˜ˆì™¸ì²˜ë¦¬ë¶€ (EXCEPTION)
     
-    ¿¹¿Ü (EXCEPTION) : ½ÇÇà Áß ¹ß»ýÇÏ´Â ¿À·ù
+    ì˜ˆì™¸ (EXCEPTION) : ì‹¤í–‰ ì¤‘ ë°œìƒí•˜ëŠ” ì˜¤ë¥˜
     
 
-    [Ç¥Çö¹ý]
+    [í‘œí˜„ë²•]
     EXCEPTION
-        WHEN ¿¹¿Ü¸í1 THEN ¿¹¿ÜÃ³¸®±¸¹®1;
-        WHEN ¿¹¿Ü¸í2 THEN ¿¹¿ÜÃ³¸®±¸¹®2;
+        WHEN ì˜ˆì™¸ëª…1 THEN ì˜ˆì™¸ì²˜ë¦¬êµ¬ë¬¸1;
+        WHEN ì˜ˆì™¸ëª…2 THEN ì˜ˆì™¸ì²˜ë¦¬êµ¬ë¬¸2;
         ...
-        WHEN OTHERS THEN ¿¹¿ÜÃ³¸®±¸¹®N;   --> OTHERS´Â ¸ðµç ¿¹¿Ü ´Ù ¹ÞÀ» ¼ö ÀÖ´Ù.
+        WHEN OTHERS THEN ì˜ˆì™¸ì²˜ë¦¬êµ¬ë¬¸N;   --> OTHERSëŠ” ëª¨ë“  ì˜ˆì™¸ ë‹¤ ë°›ì„ ìˆ˜ ìžˆë‹¤.
         
-    * ½Ã½ºÅÛ ¿¹¿Ü (¿À¶óÅ¬¿¡¼­ ¹Ì¸® Á¤ÀÇµÇ¾îÀÖ´Â ¿¹¿Ü)
-    - NO_DATA_FOUND : SELECTÇÑ °á°ú°¡ ÇÑ Çàµµ ¾ø¾úÀ» °æ¿ì
-    - TOO_MANY_ROWS : SELECTÇÑ °á°ú°¡ ¿©·¯ÇàÀÏ °æ¿ì
-    - ZERO_DIVIDE : 0À¸·Î ³ª´­ ¶§
-    - DUP_VAL_ON_INDEX : UNIQUE Á¦¾àÁ¶°Ç¿¡ À§¹èµÇ¾úÀ» °æ¿ì
-    ....µîµî
+    * ì‹œìŠ¤í…œ ì˜ˆì™¸ (ì˜¤ë¼í´ì—ì„œ ë¯¸ë¦¬ ì •ì˜ë˜ì–´ìžˆëŠ” ì˜ˆì™¸)
+    - NO_DATA_FOUND : SELECTí•œ ê²°ê³¼ê°€ í•œ í–‰ë„ ì—†ì—ˆì„ ê²½ìš°
+    - TOO_MANY_ROWS : SELECTí•œ ê²°ê³¼ê°€ ì—¬ëŸ¬í–‰ì¼ ê²½ìš°
+    - ZERO_DIVIDE : 0ìœ¼ë¡œ ë‚˜ëˆŒ ë•Œ
+    - DUP_VAL_ON_INDEX : UNIQUE ì œì•½ì¡°ê±´ì— ìœ„ë°°ë˜ì—ˆì„ ê²½ìš°
+    ....ë“±ë“±
     
 */
--- »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¼ö·Î ³ª´°¼À ¿¬»êÇÑ °á°ú Ãâ·Â
+-- ì‚¬ìš©ìžê°€ ìž…ë ¥í•œ ìˆ˜ë¡œ ë‚˜ëˆ—ì…ˆ ì—°ì‚°í•œ ê²°ê³¼ ì¶œë ¥
 DECLARE
     RESULT NUMBER;
 BEGIN 
-    RESULT := 10 / &¼ýÀÚ;
-    DBMS_OUTPUT.PUT_LINE('°á°ú : ' || RESULT);
+    RESULT := 10 / &ìˆ«ìž;
+    DBMS_OUTPUT.PUT_LINE('ê²°ê³¼ : ' || RESULT);
 EXCEPTION 
-    --WHEN ZERO_DIVIDE THEN DBMS_OUTPUT.PUT_LINE('³ª´©±â ¿¬»ê½Ã 0À¸·Î ³ª´­ ¼ö ¾ø¾î¿ä');
-    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('³ª´©±â ¿¬»ê½Ã 0À¸·Î ³ª´­ ¼ö ¾ø¾î¿ä');
+    --WHEN ZERO_DIVIDE THEN DBMS_OUTPUT.PUT_LINE('ë‚˜ëˆ„ê¸° ì—°ì‚°ì‹œ 0ìœ¼ë¡œ ë‚˜ëˆŒ ìˆ˜ ì—†ì–´ìš”');
+    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('ë‚˜ëˆ„ê¸° ì—°ì‚°ì‹œ 0ìœ¼ë¡œ ë‚˜ëˆŒ ìˆ˜ ì—†ì–´ìš”');
 END;
 /
 
 
--- UNIQUE Á¦¾àÁ¶°Ç À§¹è½Ã
+-- UNIQUE ì œì•½ì¡°ê±´ ìœ„ë°°ì‹œ
 BEGIN 
     UPDATE EMPLOYEE
-    SET EMP_ID = '&º¯°æÇÒ»ç¹ø'
-    WHERE EMP_NAME = '³ë¿ËÃ¶';
+    SET EMP_ID = '&ë³€ê²½í• ì‚¬ë²ˆ'
+    WHERE EMP_NAME = 'ë…¸ì˜¹ì² ';
 EXCEPTION 
-    WHEN DUP_VAL_ON_INDEX THEN DBMS_OUTPUT.PUT_LINE('ÀÌ¹Ì Á¸ÀçÇÏ´Â »ç¹øÀÔ´Ï´Ù.');
+    WHEN DUP_VAL_ON_INDEX THEN DBMS_OUTPUT.PUT_LINE('ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” ì‚¬ë²ˆìž…ë‹ˆë‹¤.');
 END;
 /
 SELECT * FROM EMPLOYEE;
@@ -445,14 +445,14 @@ BEGIN
     SELECT EMP_ID, EMP_NAME
     INTO EID, ENAME
     FROM EMPLOYEE
-    WHERE MANAGER_ID = &»ç¼ö»ç¹ø;
+    WHERE MANAGER_ID = &ì‚¬ìˆ˜ì‚¬ë²ˆ;
     
-    DBMS_OUTPUT.PUT_LINE('»ç¹ø : ' || EID);
-    DBMS_OUTPUT.PUT_LINE('ÀÌ¸§ : ' || ENAME);
+    DBMS_OUTPUT.PUT_LINE('ì‚¬ë²ˆ : ' || EID);
+    DBMS_OUTPUT.PUT_LINE('ì´ë¦„ : ' || ENAME);
 EXCEPTION
-    --WHEN NO_DATA_FOUND THEN DBMS_OUTPUT.PUT_LINE('Á¶È¸°á°ú°¡ ¾ø½À´Ï´Ù.');
-    --WHEN TOO_MANY_ROWS THEN DBMS_OUTPUT.PUT_LINE('³Ê¹« ¸¹Àº ÇàÀÌ Á¶È¸µÇ¾ú½À´Ï´Ù.');
-    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('¿¹¿Ü°¡ ¹ß»ýÇß¾î¿ä'); -- ¸ðµç ¿¹¿Ü ¹ÞÀ» ¼ö ÀÖÁö¸¸ µÎ·ç¹¶½ÇÇÏ°Ô ¾Ë·ÁÁÜ
+    --WHEN NO_DATA_FOUND THEN DBMS_OUTPUT.PUT_LINE('ì¡°íšŒê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.');
+    --WHEN TOO_MANY_ROWS THEN DBMS_OUTPUT.PUT_LINE('ë„ˆë¬´ ë§Žì€ í–‰ì´ ì¡°íšŒë˜ì—ˆìŠµë‹ˆë‹¤.');
+    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('ì˜ˆì™¸ê°€ ë°œìƒí–ˆì–´ìš”'); -- ëª¨ë“  ì˜ˆì™¸ ë°›ì„ ìˆ˜ ìžˆì§€ë§Œ ë‘ë£¨ë­‰ì‹¤í•˜ê²Œ ì•Œë ¤ì¤Œ
 END;
 /
 
